@@ -3,6 +3,8 @@ cherimoya
 
 A monitor for the [AARTFAAC correlator](https://github.com/aartfaac/correlator).
 
+[![Build Status](https://travis-ci.org/gijzelaerr/cherimoya.png)](https://travis-ci.org/gijzelaerr/cherimoya)
+
 Documentation
 -------------
 
