@@ -15,19 +15,22 @@ Documentation
 installation
 ------------
 
-To install cherimoya::
+To install cherimoya:
 
-> $ pip install -r requirements.txt
-> $ python setup.py install
-
+```Shell
+$ pip install -r requirements.txt
+$ python setup.py install
+```
 
 testing
 -------
 
-to test cherimoya::
+to test cherimoya:
 
-> $ pip install -r test/requirements.txt
-
+```Shell
+$ pip install -r test/requirements.txt
+$ nosetests
+```
 
 credits
 -------
