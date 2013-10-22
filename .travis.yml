@@ -9,7 +9,5 @@ before_install:
   - sudo ldconfig
   - pip install -r requirements_dev.txt --use-mirrors
   - pip install -r requirements.txt --use-mirrors
-install:
-  - python setup.py install
 script:
-  - nosetests
+ - python ./manage.py test

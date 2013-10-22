@@ -52,7 +52,7 @@ to test cherimoya:
 
 ```Shell
 $ pip install -r requirements_dev.txt
-$ nosetests
+$ ./manage.py test
 ```
 
 credits
