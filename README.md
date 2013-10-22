@@ -51,7 +51,7 @@ testing
 to test cherimoya:
 
 ```Shell
-$ pip install -r test/requirements.txt
+$ pip install -r requirements_dev.txt
 $ nosetests
 ```
 
