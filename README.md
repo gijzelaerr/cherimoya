@@ -2,7 +2,7 @@ cherimoya
 =========
 
 A monitor for the [AARTFAAC imaging pipeline](https://github.com/aartfaac/imaging),
-part of the [AARTFAAC project](https://github.com/aartfaac/imaging).
+part of the [AARTFAAC project](http://www.aartfaac.org/).
 
 [![Build Status](https://travis-ci.org/gijzelaerr/cherimoya.png)](https://travis-ci.org/gijzelaerr/cherimoya)
 
