@@ -1,7 +1,10 @@
 import socket
+from datetime import datetime
+import logging
+from monitor.models import Statistic, FloatValue, IntValue, Line, StrValue
 
-host = 'localhost'
-port = 9999
+logger = logging.getLogger(__file__)
+
 
 def readline(sock):
     """reads newline terminated lines from a socket. Yields lines.
@@ -44,10 +47,36 @@ def detect_type(field):
 
 def parseline(line):
     ver, timestamp, label, fields = line.split(" ", 3)
-    parsed = []
+    assert ver, 0
+    timestamp = datetime.fromtimestamp(float(timestamp))
+    values = []
     for index, field in enumerate(fields.split(" ")):
         type_ = detect_type(field)
-        parsed.append((type_, index, type_(field)))
+        values.append((type_, index, type_(field)))
+    return timestamp, label, values
+
+type_map = {
+    int: IntValue,
+    float: FloatValue,
+    str: StrValue,
+}
+
+
+def store(timestamp, label, values):
+    """Stores a parsed aartfac log line to database.
+
+    :param timestamp: a python timestamp
+    :param label: the name of the statistic
+    :param values: a list of (type, index, value) tuples
+    """
+    statistic, created = Statistic.objects.get_or_create(name=label)
+    line, created = Line.objects.get_or_create(statistic=statistic,
+                                      moment=timestamp)
+    for type_, index, value in values:
+        model = type_map[type_]
+        m = model(line=line, index=index, value=value)
+        logger.debug("storing %s" % m)
+        m.save()
 
 
 def client_mainloop(host, port):
@@ -58,6 +87,7 @@ def client_mainloop(host, port):
     try:
         sock.connect((host, port))
         for line in readline(sock):
-            print line
+            timestamp, label, values = parseline(line)
+            store(timestamp, label, values)
     finally:
         sock.close()
