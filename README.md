@@ -19,7 +19,6 @@ Install the required python modules:
 
 ```Shell
 $ pip install -r requirements.txt
-$ python setup.py install
 ```
 
 Configure your AARTFAAC imaging pipeline nodes in *cherimoya/settings.py*.
