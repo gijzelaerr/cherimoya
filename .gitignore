@@ -3,3 +3,4 @@
 *.pyc
 local_settings.py
 cherimoya.db
+cherimoya/settings.cfg
