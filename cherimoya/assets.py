@@ -1,14 +1,15 @@
 from webassets import Bundle
 
 main_styles = Bundle(
-    "styles/normalize.css",
-    "styles/main.css",
+    'js/bootstrap/css/bootstrap.css',
     filters=["cssmin"],
     output="cached_styles/main.css"
 )
 
 main_scripts = Bundle(
-    "scripts/jquery-1.8.0.js",
-    filters=["jsmin"],
-    output="cached_scripts/main.js"
+    'js/jquery/jquery.min.js',
+    'js/bootstrap/js/bootstrap.min.js',
+    'js/d3/d3.min.js',
+    filters='jsmin',
+    output='cached_scripts/main.js'
 )

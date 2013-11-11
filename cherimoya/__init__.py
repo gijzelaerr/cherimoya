@@ -1,9 +1,9 @@
 import os
 from flask import Flask
-from flask.ext.assets import Environment
-from webassets.loaders import PythonLoader
+from flask.ext.assets import Environment, Bundle
 from cherimoya import views
 from cherimoya import db
+from cherimoya.assets import main_styles, main_scripts
 
 app = Flask(__name__)
 app.config.from_object('cherimoya.default_settings')
@@ -16,12 +16,10 @@ else:
 # Database init
 db.db.init_app(app)
 
-# Assets init
-asset_env = Environment()
-asset_mod_name = __name__.split(".")[0] + ".assets"
-for name, bundle in PythonLoader(asset_mod_name).load_bundles().iteritems():
-    asset_env.register(name, bundle)
-asset_env.init_app(application)
+# init assets
+assets = Environment(app)
+assets.register('main_styles', main_styles)
+assets.register('main_scripts', main_scripts)
 
 # Routing init
 for route in views.routes:
