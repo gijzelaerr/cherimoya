@@ -1,7 +1,10 @@
 {% extends "base.html" %}
-{% block page_title %}Homepage{% endblock %}
+{% block page_title %}Statistics{% endblock %}
 {% block page_content %}
+<h1>Statistics</h1>
+<ul>
 {% for statistic in statistics %}
-    {{ statistic }}
+    <li>{{ statistic }}</li>
 {%  endfor %}
+</ul>
 {% endblock %}

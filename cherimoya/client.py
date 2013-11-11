@@ -1,7 +1,8 @@
 import socket
 from datetime import datetime
 import logging
-from cherimoya.db import Statistic, FloatValue, IntValue, Line, StrValue, db
+from cherimoya.db import Statistic, FloatValue, IntValue, Line, StrValue, db,\
+    get_or_create
 from cherimoya import app
 
 logger = logging.getLogger(__file__)
@@ -72,13 +73,15 @@ def store(timestamp, label, values):
     :param label: the name of the statistic
     :param values: a list of (type, index, value) tuples
     """
-    statistic = Statistic(name=label)
-    line = Line(statistic=statistic, moment=timestamp)
+    statistic = get_or_create(db.session, Statistic, name=label)
+    line = get_or_create(db.session, Line, statistic=statistic,
+                         moment=timestamp)
 
     db.session.add_all([statistic, line])
     for type_, index, value in values:
         model = type_map[type_]
-        m = model(line=line, index=index, value=value)
+        m = get_or_create(db.session, model, line=line, index=index,
+                          value=value)
         logger.debug("storing %s" % m)
         db.session.add(m)
     db.session.commit()
