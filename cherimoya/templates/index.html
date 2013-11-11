@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block page_title %}Homepage{% endblock %}
 {% block page_content %}
-<p>Sup, world?</p>
+{% for statistic in statistics %}
+    {{ statistic }}
+{%  endfor %}
 {% endblock %}

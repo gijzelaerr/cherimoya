@@ -1,4 +1,5 @@
 from webassets import Bundle
+from flask.ext.assets import Environment
 
 main_styles = Bundle(
     'js/bootstrap/css/bootstrap.css',
@@ -13,3 +14,8 @@ main_scripts = Bundle(
     filters='jsmin',
     output='cached_scripts/main.js'
 )
+
+def init_app(app):
+    assets = Environment(app)
+    assets.register('main_styles', main_styles)
+    assets.register('main_scripts', main_scripts)

@@ -1,4 +1,4 @@
-from cherimoya.db import db
+from cherimoya import db, app
 
-db.engine.echo = True
-db.create_all()
+db.db.app = app
+db.db.create_all()

@@ -1,11 +1,13 @@
 import socket
 from datetime import datetime
 import logging
-from cherimoya.db import Statistic, FloatValue, IntValue, Line, StrValue
+from cherimoya.db import Statistic, FloatValue, IntValue, Line, StrValue, db
 from cherimoya import app
 
 logger = logging.getLogger(__file__)
 
+
+db.init_app(app)
 
 def readline(sock):
     """reads newline terminated lines from a socket. Yields lines.
@@ -72,11 +74,14 @@ def store(timestamp, label, values):
     """
     statistic = Statistic(name=label)
     line = Line(statistic=statistic, moment=timestamp)
+
+    db.session.add_all([statistic, line])
     for type_, index, value in values:
         model = type_map[type_]
         m = model(line=line, index=index, value=value)
         logger.debug("storing %s" % m)
-        #m.save()
+        db.session.add(m)
+    db.session.commit()
 
 
 def client_mainloop(host, port):
