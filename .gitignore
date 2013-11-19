@@ -3,3 +3,9 @@
 *.pyc
 local_settings.py
 cherimoya.db
+cherimoya/settings.cfg
+cherimoya/static/.webassets-cache/
+cherimoya/static/cached_scripts/
+cherimoya/static/cached_styles/
+cherimoya/storage.db
+

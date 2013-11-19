@@ -13,7 +13,7 @@ Documentation
 
 
 Usage
-------------
+-----
 
 Install the required python modules:
 
@@ -21,28 +21,27 @@ Install the required python modules:
 $ pip install -r requirements.txt
 ```
 
-Configure your AARTFAAC imaging pipeline nodes in *cherimoya/settings.py*.
+Configure your AARTFAAC imaging pipeline nodes in *cherimoya/settings.cfg*.
 
 Now start the log collector:
 ```Shell
-$ python ./manage.py aartfaacclient
+$ python ./cherimoya/client.py
 ```
 
 You can also start a fake log server:
 ```Shell
-$ python ./manage.py aartfaacserver
+$ python cherimoya/server.py
 ```
 
-Now configure your favorite webserver to start serving this Django project!
-If you do don't know how to do that you should read the [Django deployment
-documentation](https://docs.djangoproject.com/en/1.5/howto/deployment/). If
-you just want to have a quick lock you can run a Django development server:
+Now configure your favorite webserver to start serving this Flask project!
+If you just want to have a quick lock you can run a Flask development server
+from the cherimoya project folder:
 
 ```Shell
-$ python ./manage.py runserver
+$ python cherimoya
 ```
 
-and point your browser to [](http://127.0.0.1:8000/)
+and point your browser to [](http://127.0.0.1:5000/)
 
 testing
 -------
