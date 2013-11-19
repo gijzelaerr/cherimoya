@@ -2,7 +2,7 @@ import socket
 from datetime import datetime
 import logging
 from cherimoya.db import Statistic, FloatValue, IntValue, Line, StrValue, db,\
-    get_or_create
+    get_or_create, ComplexValue
 from cherimoya import app
 
 logger = logging.getLogger(__file__)
@@ -32,37 +32,38 @@ def readline(sock):
         yield buffer
 
 
-def isfloat(string):
+def tocomplex(string):
     try:
-        float(string)
-        return True
+        r, i = string[1:-1].split(',')
+        return complex(float(r), float(i))
     except ValueError:
-        return False
+        raise ValueError("could not convert string to complex: %s" % string)
 
 
-def detect_type(field):
-    if field.isdigit():
-        return int
-    elif isfloat(field):
-        return float
-    else:
-        return str
+def parse(string):
+    for func in tocomplex, float, int, str:
+        try:
+            return func(string)
+        except ValueError:
+            pass
 
 
 def parseline(line):
-    ver, timestamp, label, fields = line.split(" ", 3)
+    ver, label, timestamp, fields = line.split(" ", 3)
     assert ver, 0
     timestamp = datetime.fromtimestamp(float(timestamp))
     values = []
     for index, field in enumerate(fields.split(" ")):
-        type_ = detect_type(field)
-        values.append((type_, index, type_(field)))
+        value = parse(field)
+        values.append((index, value))
     return timestamp, label, values
+
 
 type_map = {
     int: IntValue,
     float: FloatValue,
     str: StrValue,
+    complex: ComplexValue,
 }
 
 
@@ -78,8 +79,8 @@ def store(timestamp, label, values):
                          moment=timestamp)
 
     db.session.add_all([statistic, line])
-    for type_, index, value in values:
-        model = type_map[type_]
+    for index, value in values:
+        model = type_map[type(value)]
         m = get_or_create(db.session, model, line=line, index=index,
                           value=value)
         logger.debug("storing %s" % m)
@@ -99,7 +100,6 @@ def client_mainloop(host, port):
             store(timestamp, label, values)
     finally:
         sock.close()
-
 
 
 if __name__ == '__main__':

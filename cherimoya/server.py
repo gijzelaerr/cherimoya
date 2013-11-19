@@ -35,17 +35,26 @@ def str_generator(choices):
     return lambda: random.choice(choices)
 
 
+def complex_generator(start, end):
+    """
+    returns a function that generates random complex numbers in the range
+    start - end. complex numers are formatted like: (0.1,0.2)
+    """
+    ran = lambda: start + random.random()*(end-start)
+    return lambda: "(%s,%s)" % (ran(), ran())
+
+
 
 field_types = {
     'EXAMPLE1': (
         float_generator(10, 100),
         float_generator(0, 5),
     ),
-    'EXAMPLE2':
-        50 * [int_generator(0, 100)],
+    'EXAMPLE2': 50 * [int_generator(0, 100)],
     'EXAMPLE3': (
         str_generator(["LBA0", "LBA1", "HBA_SPLIT"]),
     ),
+    'EXAMPLE4': 4 * [complex_generator(0, 0.2)],
 }
 
 
