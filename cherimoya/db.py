@@ -92,3 +92,11 @@ class ComplexValue(db.Model):
     def __repr__(self):
         return "<%s %s %s %s>" % (self.__class__, self.line, self.index,
                                   self.value)
+
+
+type_map = {
+    'int': IntValue,
+    'str': StrValue,
+    'complex': ComplexValue,
+    'float': FloatValue,
+}

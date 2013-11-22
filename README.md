@@ -25,7 +25,7 @@ Configure your AARTFAAC imaging pipeline nodes in *cherimoya/settings.cfg*.
 
 Now start the log collector:
 ```Shell
-$ python ./cherimoya/client.py
+$ python cherimoya/client.py
 ```
 
 You can also start a fake log server:
@@ -49,8 +49,7 @@ testing
 to test cherimoya:
 
 ```Shell
-$ pip install -r requirements_dev.txt
-$ ./manage.py test
+$ ./cherimoya_test.py
 ```
 
 credits

@@ -8,10 +8,11 @@
         {% endassets %}
     </head>
     <body>
-    {% block page_content %}
-    {% endblock %}
+    <h1><a href="{{  url_for('index') }}">cherimoya</a></h1>
     {% assets 'main_scripts' %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
+    {% block page_content %}
+    {% endblock %}
     </body>
 </html>

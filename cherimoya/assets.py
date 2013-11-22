@@ -11,6 +11,7 @@ main_scripts = Bundle(
     'js/jquery/jquery.min.js',
     'js/bootstrap/js/bootstrap.min.js',
     'js/d3/d3.min.js',
+    'js/highcharts/highcharts.js',
     filters='jsmin',
     output='cached_scripts/main.js'
 )
