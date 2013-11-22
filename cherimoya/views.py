@@ -33,7 +33,7 @@ def plot(name, type_, index_):
                Statistic.name == name,
                Value.index == index_).\
         order_by(Line.moment).all()
-    return render_template('plot.html', series=series, name=name,
+    return render_template(type_ +'.html', series=series, name=name,
                            index_=index_, type_=type_)
 
 
