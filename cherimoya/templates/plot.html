@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block page_title %}Plot{% endblock %}
+{% block page_content %}
+<h2>Plot</h2>
+
+<div id='chart'></div>
+
+
+
+<script>
+    $(function () {
+        $('#chart').highcharts({
+            chart: {
+
+                zoomType: 'x'
+            },
+            title: {
+                text: '{{ name }}, field {{ index }}'
+            },
+            xAxis: {
+                title: {
+                    text: 'Time'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'value'
+                },
+                min: 0
+            },
+plotOptions: {
+                                series: {
+                                animation: false
+                            },
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [
+                        {
+                            type: 'area',
+                            name: 'name',
+                            data: [
+                                {% for value in series %}
+                                    {{ value.real }}
+                                    {% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            ]
+                        }
+            ]
+        });
+    });
+</script>
+
+{% endblock %}
