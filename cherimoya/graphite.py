@@ -54,7 +54,7 @@ def parse(string):
 
 def parseline(line):
     ver, label, timestamp, fields = line.split(" ", 3)
-    assert ver, 0
+    assert ver == "0"
     timestamp = datetime.fromtimestamp(float(timestamp))
     values = []
     for index, field in enumerate(fields.split(" ")):
@@ -67,8 +67,8 @@ def lineformat(label, index, value, timestamp):
     if type(value) == complex:
         metricreal = "%s.%s.real" % (label, index)
         line = "%s %s %s\n" % (metricreal, value.real, timestamp.strftime("%s"))
-        metricimage = "%s.%s.image" % (label, index)
-        line += "%s %s %s\n" % (metricimage, value.real, timestamp.strftime("%s"))
+        metricimag = "%s.%s.imag" % (label, index)
+        line += "%s %s %s\n" % (metricimag, value.real, timestamp.strftime("%s"))
     else:
         metric = "%s.%s" % (label, index)
         line = "%s %s %s\n" % (metric, value, timestamp.strftime("%s"))
