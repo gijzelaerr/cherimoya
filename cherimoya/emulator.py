@@ -75,8 +75,8 @@ class ThreadedTCPRequestHandler(SocketServer.BaseRequestHandler):
         while True:
             for field, props in field_types.items():
                 timestamp = time.time()
-                data = "%s %s %s %s" % (prot_ver, timestamp,
-                                        field, generate(props))
+                data = "%s %s %s %s" % (prot_ver, field, timestamp,
+                                        generate(props))
                 logger.debug("sending {}".format(data))
                 if not self.send(data):
                     break

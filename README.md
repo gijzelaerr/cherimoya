@@ -28,9 +28,9 @@ Now start the log collector:
 $ python cherimoya/client.py
 ```
 
-You can also start a fake log server:
+You can also start a fake log emulator:
 ```Shell
-$ python cherimoya/server.py
+$ python cherimoya/emulator.py
 ```
 
 Now configure your favorite webserver to start serving this Flask project!
