@@ -75,6 +75,16 @@ def lineformat(label, index, value, timestamp):
     return line
 
 
+def replace_dots(string):
+    """
+    replace dots with comma's and underscores with dots.
+
+    dots are used by graphite to determine the tree structure, so they can't be
+    used.
+    """
+    return string.replace(".", ",").replace("_", ".")
+
+
 def client_mainloop():
     """Cherimoya main loop.
     Connects to server and parses results returned.
@@ -87,7 +97,8 @@ def client_mainloop():
         for line in readline(aartfaac):
             timestamp, label, values = parseline(line)
             for index, value in values:
-                line = lineformat(label, index, value, timestamp)
+                label_clean = replace_dots(label)
+                line = lineformat(label_clean, index, value, timestamp)
                 print(line.strip())
                 graphite.sendall(line)
     finally:
