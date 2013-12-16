@@ -6,11 +6,12 @@ import logging
 import socket
 import SocketServer
 import random
-from cherimoya import app
+
+# settings
+host = 'localhost'
+port = 9999
 
 prot_ver = 0
-
-
 logger = logging.getLogger(__file__)
 
 
@@ -50,11 +51,11 @@ field_types = {
         float_generator(10, 100),
         float_generator(0, 5),
     ),
-    'EXAMPLE2': 50 * [int_generator(0, 100)],
+    'EXAMPLE2': 3 * [int_generator(0, 100)],
     'EXAMPLE3': (
         str_generator(["LBA0", "LBA1", "HBA_SPLIT"]),
     ),
-    'EXAMPLE4': 4 * [complex_generator(0, 0.2)],
+    'EXAMPLE4': 4 * [complex_generator(-0.5, 0.5)],
 }
 
 
@@ -79,8 +80,10 @@ class ThreadedTCPRequestHandler(SocketServer.BaseRequestHandler):
                                         generate(props))
                 logger.debug("sending {}".format(data))
                 if not self.send(data):
-                    break
+                    logging.warning("connection closed!")
+                    return
             time.sleep(1)
+            logging.debug("sleeping a second")
 
 
 class ThreadedTCPServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
@@ -96,6 +99,4 @@ def server_mainloop(host, port):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    host = app.config['AARTFAAC_HOSTS'][0]['HOST']
-    port = app.config['AARTFAAC_HOSTS'][0]['PORT']
     server_mainloop(host, port)
