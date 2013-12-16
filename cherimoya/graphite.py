@@ -55,22 +55,27 @@ def parse(string):
 def parseline(line):
     ver, label, timestamp, fields = line.split(" ", 3)
     assert ver == "0"
-    timestamp = datetime.fromtimestamp(float(timestamp))
+    timestamp = datetime.fromtimestamp(float(timestamp)-seconds_between_julian_and_unix_epoc)
     values = []
-    for index, field in enumerate(fields.split(" ")):
+    for index, field in enumerate(fields.split()):
         value = parse(field)
         values.append((index, value))
     return timestamp, label, values
 
 
-def lineformat(label, index, value, timestamp):
+def lineformat(label, index, value, timestamp, multiple=True):
+    if multiple:
+        postfix = ".%s" % index
+    else:
+        postfix = ""
+
     if type(value) == complex:
-        metricreal = "%s.%s.real" % (label, index)
+        metricreal = "%s%s.real" % (label, postfix)
         line = "%s %s %s\n" % (metricreal, value.real, timestamp.strftime("%s"))
-        metricimag = "%s.%s.imag" % (label, index)
+        metricimag = "%s%s.imag" % (label, postfix)
         line += "%s %s %s\n" % (metricimag, value.real, timestamp.strftime("%s"))
     else:
-        metric = "%s.%s" % (label, index)
+        metric = "%s%s" % (label, postfix)
         line = "%s %s %s\n" % (metric, value, timestamp.strftime("%s"))
     return line
 
@@ -96,9 +101,10 @@ def client_mainloop():
         graphite.connect((GRAPHITE_HOST, GRAPHITE_PORT))
         for line in readline(aartfaac):
             timestamp, label, values = parseline(line)
+            multiple = bool(max(0, len(values) - 1))
             for index, value in values:
                 label_clean = replace_dots(label)
-                line = lineformat(label_clean, index, value, timestamp)
+                line = lineformat(label_clean, index, value, timestamp, multiple)
                 print(line.strip())
                 graphite.sendall(line)
     finally:
