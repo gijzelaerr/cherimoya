@@ -1,8 +1,11 @@
 cherimoya
 =========
 
-A monitor for the [AARTFAAC imaging pipeline](https://github.com/aartfaac/imaging),
-part of the [AARTFAAC project](http://www.aartfaac.org/).
+A monitor service for the
+[AARTFAAC imaging pipeline](https://github.com/aartfaac/imaging),
+part of the [AARTFAAC project](http://www.aartfaac.org/). It translates the
+AARTFAAC imaging log output to [Graphite](http://graphite.readthedocs.org/)
+events, which can plot this in pretty graphs.
 
 [![Build Status](https://travis-ci.org/gijzelaerr/cherimoya.png)](https://travis-ci.org/gijzelaerr/cherimoya)
 
@@ -11,6 +14,17 @@ Documentation
 
 [source for the technical design document](https://github.com/aartfaac/docs/tree/master/reports/imaging/monitoring).
 
+preperations - setting up graphite
+----------------------------------
+
+If are using Debian/Ubuntu you prefab packages:
+
+```Shell
+$ sudo apt-get install graphite-carbon graphite-web
+$ less /usr/share/doc/graphite-web/README.Debian
+````
+
+Alternativly you can install Graphite [manually](http://graphite.readthedocs.org/).
 
 Usage
 -----
@@ -21,36 +35,24 @@ Install the required python modules:
 $ pip install -r requirements.txt
 ```
 
-Configure your AARTFAAC imaging pipeline nodes in *cherimoya/settings.cfg*.
-
-Now start the log collector:
+Now configure your cherimoya:
 ```Shell
-$ python cherimoya/client.py
+$ cp cherimoya/settings_example.py cherimoya/settings.py
+$ editor cherimoya/settings.py
 ```
 
-You can also start a fake log emulator:
+If you don't have a AARTFAAC imaging pipeline, you can start a emulator:
 ```Shell
 $ python cherimoya/emulator.py
 ```
 
-Now configure your favorite webserver to start serving this Flask project!
-If you just want to have a quick lock you can run a Flask development server
-from the cherimoya project folder:
-
+To start translating AARTFAAC monitoring events to Graphite events run:
 ```Shell
-$ python cherimoya
+$ python cherimoya/graphite.py
 ```
 
-and point your browser to [](http://127.0.0.1:5000/)
+and then point your browser to your graphite instance.
 
-testing
--------
-
-to test cherimoya:
-
-```Shell
-$ ./cherimoya_test.py
-```
 
 credits
 -------
