@@ -21,7 +21,6 @@ If are using Debian/Ubuntu you prefab packages:
 
 ```Shell
 $ sudo apt-get install graphite-carbon graphite-web libapache2-mod-wsgi
-$ CARBON_CACHE_ENABLED=true
 $ sudo sh -c "echo 'CARBON_CACHE_ENABLED=true\n' > /etc/default/graphite-carbon"
 $ sudo service carbon-cache start
 $ sudo graphite-manage syncdb
