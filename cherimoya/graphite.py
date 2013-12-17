@@ -1,17 +1,10 @@
 import socket
 from datetime import datetime
 import logging
+from cherimoya.common import jul_unix_diff
+from cherimoya import settings
 
 logger = logging.getLogger(__file__)
-
-seconds_between_julian_and_unix_epoc = 3506716800
-
-
-AARTFAAC_HOST = 'localhost'
-AARTFAAC_PORT = 9999
-
-GRAPHITE_HOST = 'localhost'
-GRAPHITE_PORT = 2003
 
 
 def readline(sock):
@@ -20,20 +13,20 @@ def readline(sock):
     :param sock: a python socket
     :return: yields stripped lines
     """
-    buffer = sock.recv(4096)
+    buffer_ = sock.recv(4096)
     done = False
     while not done:
-        if "\n" in buffer:
-            (line, buffer) = buffer.split("\n", 1)
+        if "\n" in buffer_:
+            (line, buffer_) = buffer_.split("\n", 1)
             yield line
         else:
             more = sock.recv(4096)
             if not more:
                 done = True
             else:
-                buffer = buffer+more
-    if buffer:
-        yield buffer
+                buffer_ = buffer_ + more
+    if buffer_:
+        yield buffer_
 
 
 def tocomplex(string):
@@ -55,7 +48,7 @@ def parse(string):
 def parseline(line):
     ver, label, timestamp, fields = line.split(" ", 3)
     assert ver == "0"
-    timestamp = datetime.fromtimestamp(float(timestamp)-seconds_between_julian_and_unix_epoc)
+    timestamp = datetime.fromtimestamp(float(timestamp) - jul_unix_diff)
     values = []
     for index, field in enumerate(fields.split()):
         value = parse(field)
@@ -97,8 +90,8 @@ def client_mainloop():
     aartfaac = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     graphite = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        aartfaac.connect((AARTFAAC_HOST, AARTFAAC_PORT))
-        graphite.connect((GRAPHITE_HOST, GRAPHITE_PORT))
+        aartfaac.connect((settings.AARTFAAC_HOST, settings.AARTFAAC_PORT))
+        graphite.connect((settings.GRAPHITE_HOST, settings.GRAPHITE_PORT))
         for line in readline(aartfaac):
             timestamp, label, values = parseline(line)
             multiple = bool(max(0, len(values) - 1))
@@ -110,7 +103,6 @@ def client_mainloop():
     finally:
         aartfaac.close()
         graphite.close()
-
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
