@@ -20,11 +20,21 @@ preperations - setting up graphite
 If are using Debian/Ubuntu you prefab packages:
 
 ```Shell
-$ sudo apt-get install graphite-carbon graphite-web
-$ less /usr/share/doc/graphite-web/README.Debian
+$ sudo apt-get install graphite-carbon graphite-web libapache2-mod-wsgi
+$ CARBON_CACHE_ENABLED=true
+$ sudo sh -c "echo 'CARBON_CACHE_ENABLED=true\n' > /etc/default/graphite-carbon"
+$ sudo service carbon-cache start
+$ sudo graphite-manage syncdb
+$ sudo chown _graphite:_graphite /var/lib/graphite/graphite.db
+$ sudo cp /usr/share/graphite-web/apache2-graphite.conf /etc/apache2/sites-available/graphite-web.conf
+$ sudo a2ensite graphite-web
+$ sudo /etc/init.d/apache2 restart
 ````
 
-Alternativly you can install Graphite [manually](http://graphite.readthedocs.org/).
+You can edit your data retention policy in `/etc/carbon/storage-schemas.conf`.
+For more info read the doc in `/usr/share/doc/graphite-web/README.Debian`.
+
+Alternatively you can install Graphite [manually](http://graphite.readthedocs.org/).
 
 Usage
 -----
