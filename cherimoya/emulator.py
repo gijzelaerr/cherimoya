@@ -51,5 +51,8 @@ def server_mainloop(host, port):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    level = logging.INFO
+    if settings.DEBUG:
+        level = logging.DEBUG
+    logging.basicConfig(level=level)
     server_mainloop(settings.AARTFAAC_HOST, settings.AARTFAAC_PORT)

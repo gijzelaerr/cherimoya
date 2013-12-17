@@ -98,12 +98,15 @@ def client_mainloop():
             for index, value in values:
                 label_clean = replace_dots(label)
                 line = lineformat(label_clean, index, value, timestamp, multiple)
-                print(line.strip())
+                logging.debug(line.strip())
                 graphite.sendall(line)
     finally:
         aartfaac.close()
         graphite.close()
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    level = logging.INFO
+    if settings.DEBUG:
+        level = logging.DEBUG
+    logging.basicConfig(level=level)
     client_mainloop()
