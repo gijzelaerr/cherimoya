@@ -4,6 +4,71 @@
     <title>All gains</title>
 </head>
 <body>
+<script src="/cherimoya/js/jquery-2.0.3.min.js"></script>
+<script src="/cherimoya/js/highcharts.min.js"></script>
+
+<script>
+
+//$(function () {
+$( document ).ready(function() {
+
+    url = 'http://localhost/render?width=800&from=1387794999&until=1387795000&height=500&target=GAINS.*.0.*&format=json';
+
+    var items = new Object();
+    var series = [];
+    var time;
+
+    $.getJSON(url, function( data ) {
+      $.each( data, function( index, metric ) {
+        time = metric.datapoints[0][1];
+        var value = metric.datapoints[0][0];
+        var target = metric.target;
+        var splitted = target.split('.');
+        var axes = splitted.pop();
+        var name = splitted.join('.');
+        if (!(name in items)) {
+            items[name] = [];
+        }
+        items[name][axes] = value;
+      });
+      $.each(items, function(key, value) {
+        series.push({'name': key, 'data': [[value['real'], value['imag']]]});
+      });
+      $('#container').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'All gains for antenna 0 on ' + Highcharts.dateFormat('%Y %b %e %H:%M', time * 1000)
+        },
+        xAxis: {
+          title: {
+            enabled: true,
+            text: 'Real'
+          },
+          startOnTick: true,
+          endOnTick: true,
+          showLastLabel: true
+        },
+        yAxis: {
+          title: {
+            text: 'Imag'
+          }
+        },
+        series: series
+      });
+    });
+
+
+});
+
+
+</script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
 <img src="http://localhost//render?width=800&from=1387794000&until=1387795100&height=500&target=*.*.0.*&title=*.*.0.*&lineMode=connected">
 </body>
 </html>

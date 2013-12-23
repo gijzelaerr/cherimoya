@@ -7,6 +7,12 @@ from cherimoya import settings
 logger = logging.getLogger(__file__)
 
 
+max_timestamp = 1342058400
+then = datetime.fromtimestamp(max_timestamp)
+now = datetime.now()
+compensate = (now - then).total_seconds()
+
+
 def readline(sock):
     """reads newline terminated lines from a socket. Yields lines.
 
@@ -48,7 +54,7 @@ def parse(string):
 def parseline(line):
     ver, label, timestamp, fields = line.split(" ", 3)
     assert ver == "0"
-    timestamp = datetime.fromtimestamp(float(timestamp) - jul_unix_diff)
+    timestamp = datetime.fromtimestamp(float(timestamp) - jul_unix_diff + compensate)
     values = []
     for index, field in enumerate(fields.split()):
         value = parse(field)
@@ -80,7 +86,7 @@ def replace_dots(string):
     dots are used by graphite to determine the tree structure, so they can't be
     used.
     """
-    return string.replace(".", ",").replace("_", ".")
+    return string.replace(".", "-").replace("_", ".")
 
 
 def client_mainloop():
