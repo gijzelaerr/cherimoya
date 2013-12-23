@@ -1,7 +1,7 @@
-FROM ubuntu
-RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ saucy main restricted universe multiverse\ndeb http://nl.archive.ubuntu.com/ubuntu/ saucy-updates main restricted universe multiverse\ndeb http://nl.archive.ubuntu.com/ubuntu/ saucy-backports main restricted universe multiverse\ndeb http://security.ubuntu.com/ubuntu saucy-security main restricted universe multiverse" > /etc/apt/sources.list
+FROM stackbrew/ubuntu:saucy
+RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ saucy main universe multiverse\ndeb http://nl.archive.ubuntu.com/ubuntu/ saucy-updates main universe multiverse\ndeb http://security.ubuntu.com/ubuntu saucy-security main universe multiverse" > /etc/apt/sources.list
 RUN apt-get update
-#RUN apt-get -y upgrade
+RUN apt-get -y upgrade
 RUN apt-get -y install graphite-carbon graphite-web libapache2-mod-wsgi
 RUN echo "CARBON_CACHE_ENABLED=true\n" > /etc/default/graphite-carbon
 RUN service carbon-cache start
