@@ -1,19 +1,95 @@
 <!DOCTYPE html>
+<html ng-app="cherimoya">
 <head>
     <meta charset="utf-8">
     <title>Cherimoya</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 </head>
 <body>
-<img src="/render?from=1389609254&until=1389610504&width=800&height=500&target=GAINS.*.1.imag&_uniq=0.6232971050776541&title=GAINS.*.1.imag">
+<div class="container" ng-controller="RangeCtrl">
+
+    <div class="page-header">
+        <h1>Cherimoya</h1>
+        <p class="lead">Bringing fresh fruit in the astronomers life!</p>
+    </div>
+
+    <h3>Range selector</h3>
+    <div class="row">
+        <div>
+            <div class="col-md-1">
+                from
+            </div>
+            <div class="col-md-3">
+                <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                           ng-model="startMoment" is-open="opened"
+                           datepicker-options="dateOptions"
+                           ng-required="true"
+                           close-text="Close"
+                           ng-change="changed()"
+                           ng-init="setStartFromTimestamp(1389609314)"
+                            />
+              <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="open($event)">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+              </span>
+                </p>
+            </div>
+            <div class="col-md-2">
+                <div ng-model="startMoment" ng-change="changed()" style="display:inline-block;">
+                    <timepicker hour-step="hstep" minute-step="mstep"
+                                show-meridian="ismeridian">
+
+                    </timepicker>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="col-md-1">
+                untill
+            </div>
+            <div class="col-md-3">
+                <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                           ng-model="endMoment" is-open="opened"
+                           datepicker-options="dateOptions"
+                           ng-required="true"
+                           ng-init="setEndFromTimestamp(1389610400)"
+                            />
+              <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="open($event)">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+              </span>
+                </p>
+            </div>
+            <div class="col-md-2">
+                <div ng-model="endMoment" ng-change="changed()" style="display:inline-block;">
+                    <timepicker hour-step="hstep" minute-step="mstep"
+                                show-meridian="ismeridian">
+
+                    </timepicker>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <h3>Gains</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width=992&height=300&target=GAINS.*.1.imag&_uniq=0.6232971050776541&title=GAINS.*.1.imag">
+    <hr/>
+
+</div>
 
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="bower_components/jquery/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="cherimoya.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
