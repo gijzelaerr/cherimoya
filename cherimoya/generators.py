@@ -1,6 +1,5 @@
 import random
 
-__author__ = 'gijs'
 
 
 def float_generator(start, end):

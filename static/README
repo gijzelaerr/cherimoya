@@ -1,0 +1,11 @@
+
+This project uses bower to update the javascript modules.
+
+On ubuntu 
+---------
+
+ $ sudo apt-get install npm
+ $ sudo npm install -g bower
+ $ bower list
+
+

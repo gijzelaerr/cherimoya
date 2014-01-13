@@ -7,6 +7,7 @@ from cherimoya import settings
 logger = logging.getLogger(__file__)
 
 
+## temporary workaround to move SB002-data more into the future
 max_timestamp = 1342058400
 then = datetime.fromtimestamp(max_timestamp)
 now = datetime.now()

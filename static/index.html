@@ -1,57 +1,19 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<title>Cubism.js Demo</title>
-<style>
-
-@import url(style.css);
-
-</style>
+<head>
+    <meta charset="utf-8">
+    <title>Cherimoya</title>
+</head>
 <body>
-<script src="d3.min.js"></script>
-<script src="cubism.min.js"></script>
-<script>
+<img src="/render?from=1389609254&until=1389610504&width=800&height=500&target=GAINS.*.1.imag&_uniq=0.6232971050776541&title=GAINS.*.1.imag">
 
-var context = cubism.context()
-    .step(1e4)
-    .size(1440);
 
-d3.select("body").selectAll(".axis")
-    .data(["top", "bottom"])
-  .enter().append("div")
-    .attr("class", function(d) { return d + " axis"; })
-    .each(function(d) { d3.select(this).call(context.axis().ticks(12).orient(d)); });
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
-d3.select("body").append("div")
-    .attr("class", "rule")
-    .call(context.rule());
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 
-d3.select("body").selectAll(".horizon")
-    .data(d3.range(1, 50).map(random))
-  .enter().insert("div", ".bottom")
-    .attr("class", "horizon")
-    .call(context.horizon().extent([-10, 10]));
-
-context.on("focus", function(i) {
-  d3.selectAll(".value").style("right", i == null ? null : context.size() - i + "px");
-});
-
-// Replace this with context.graphite and graphite.metric!
-function random(x) {
-  var value = 0,
-      values = [],
-      i = 0,
-      last;
-  return context.metric(function(start, stop, step, callback) {
-    start = +start, stop = +stop;
-    if (isNaN(last)) last = start;
-    while (last < stop) {
-      last += step;
-      value = Math.max(-10, Math.min(10, value + .8 * Math.random() - .4 + .2 * Math.cos(i += x * .02)));
-      values.push(value);
-    }
-    callback(null, values = values.slice((start - stop) / step));
-  }, x);
-}
-
-</script>
-
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>
