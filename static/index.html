@@ -15,108 +15,105 @@
     </div>
 
     <h3>Range selector</h3>
-    <div class="row">
-        <div>
-            <div class="col-md-1">
-                from
-            </div>
-            <div class="col-md-3">
-                <p class="input-group">
-                    <input type="text" class="form-control" datepicker-popup="{{format}}"
-                           ng-model="startMoment" is-open="opened"
-                           datepicker-options="dateOptions"
-                           current-text="now"
+        <div class="row">
+            <div>
+                <div class="col-md-1">
+                    from
+                </div>
+                <div class="col-md-3">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                               ng-model="startMoment" is-open="opened"
+                               datepicker-options="dateOptions"
+                               current-text="now"
 
-                            />
+                                />
               <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="open($event)">
                     <i class="glyphicon glyphicon-calendar"></i>
                 </button>
               </span>
-                </p>
-            </div>
-            <div class="col-md-2">
-                <div ng-model="startMoment" ng-change="changed()" style="display:inline-block;">
-                    <timepicker hour-step="hstep" minute-step="mstep"
-                                show-meridian="ismeridian">
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <div ng-model="startMoment" ng-change="changed()" style="display:inline-block;">
+                        <timepicker hour-step="hstep" minute-step="mstep"
+                                    show-meridian="ismeridian">
 
-                    </timepicker>
+                        </timepicker>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div>
-            <div class="col-md-1">
-                untill
-            </div>
-            <div class="col-md-3">
-                <p class="input-group">
-                    <input type="text" class="form-control" datepicker-popup="{{format}}"
-                           ng-model="endMoment" is-open="opened"
-                           datepicker-options="dateOptions"
-                           current-text="now"
-                            />
+            <div>
+                <div class="col-md-1">
+                    untill
+                </div>
+                <div class="col-md-3">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                               ng-model="endMoment" is-open="opened"
+                               datepicker-options="dateOptions"
+                               current-text="now"
+                                />
               <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="open($event)">
                     <i class="glyphicon glyphicon-calendar"></i>
                 </button>
               </span>
-                </p>
-            </div>
-            <div class="col-md-2">
-                <div ng-model="endMoment" ng-change="changed()" style="display:inline-block;">
-                    <timepicker hour-step="hstep" minute-step="mstep"
-                                show-meridian="ismeridian">
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <div ng-model="endMoment" ng-change="changed()" style="display:inline-block;">
+                        <timepicker hour-step="hstep" minute-step="mstep"
+                                    show-meridian="ismeridian">
 
-                    </timepicker>
+                        </timepicker>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <hr/>
-    <h3>Fringe Amplitude</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FRINGE.AMPLITUDE&title=Fringe Amplitude">
-    <hr/>
+        <accordion>
 
-    <h3>Fringe Phase</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FRINGE.PHASE&title=Fringe Phase">
-    <hr/>
+            <accordion-group heading="Fringe">
+                <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FRINGE.AMPLITUDE&title=Fringe Amplitude">
 
-    <h3>Norm of ACM</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FNORM&title=Frobinius norm">
-    <hr/>
+                <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FRINGE.PHASE&title=Fringe Phase">
+            </accordion-group>
 
-    <h3>Chunks</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=CHUNKS&title=Chunks">
-    <hr/>
+            <accordion-group heading="Norm of ACM">
+                <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FNORM&title=Frobinius norm">
+            </accordion-group>
 
-    <h3>Flagger</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FLAGGER.*&title=Flagged antennas">
-    <hr/>
+            <accordion-group heading="Chunks">
+                <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=CHUNKS&title=Chunks">
+            </accordion-group>
 
-    <h3>Major Residues</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MAJORRESIDUES.*&title=Major Residues&hideLegend=false">
-    <hr/>
+            <accordion-group heading="Flagger">
+                <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FLAGGER.*&title=Flagged antennas">
+            </accordion-group>
 
-    <h3>Minor Residues</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MINORRESIDUES.*&title=Minor Residues&hideLegend=false">
-    <hr/>
+            <accordion-group heading="Major Residues">
+                <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MAJORRESIDUES.*&title=Major Residues&hideLegend=false">
+            </accordion-group>
 
-    <h3>Gains</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=GAINS.*.1.real&title=GAINS.*.1.real&hideLegend=false">
-    <hr/>
+            <accordion-group heading="Minor Residues">
+                <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MINORRESIDUES.*&title=Minor Residues&hideLegend=false">
+            </accordion-group>
 
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=GAINS.*.1.imag&title=GAINS.*.1.imag&hideLegend=false">
-    <hr/>
+            <accordion-group heading="Gains">
+                <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=GAINS.*.1.real&title=GAINS.*.1.real&hideLegend=false">
+            <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=GAINS.*.1.imag&title=GAINS.*.1.imag&hideLegend=false">
+            </accordion-group>
+        </accordion>
 
-
-<script src="bower_components/jquery/jquery.min.js"></script>
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="bower_components/highcharts/highcharts.js"></script>
-<script src="cherimoya.js"></script>
+        <script src="bower_components/jquery/jquery.min.js"></script>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="bower_components/highcharts/highcharts.js"></script>
+        <script src="cherimoya.js"></script>
 </div>
 
 </body>
