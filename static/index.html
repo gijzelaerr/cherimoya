@@ -11,7 +11,7 @@
 
     <div class="page-header">
         <h1>Cherimoya</h1>
-        <p class="lead">Bringing fresh fruit in the astronomers life!</p>
+        <p class="lead">Bringing fresh fruit in the astronomer's life!</p>
     </div>
 
     <h3>Range selector</h3>
@@ -80,9 +80,36 @@
     <hr/>
 
     <h3>Gains</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width=992&height=300&target=GAINS.*.1.imag&_uniq=0.6232971050776541&title=GAINS.*.1.imag">
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=GAINS.*.1.imag&title=GAINS.*.1.imag">
     <hr/>
 
+    <h3>Fringe Amplitude</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FRINGE.AMPLITUDE&title=Fringe Amplitude">
+    <hr/>
+
+    <h3>Fringe Phase</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FRINGE.PHASE&title=Fringe Phase">
+    <hr/>
+
+    <h3>Norm of ACM</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FNORM&title=Frobinius norm">
+    <hr/>
+
+    <h3>Chunks</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=CHUNKS&title=Chunks">
+    <hr/>
+
+    <h3>Flagger</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FLAGGER.*&title=Flagged antennas">
+    <hr/>
+
+    <h3>Major Residues</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MAJORRESIDUES.*&title=Major Residues">
+    <hr/>
+
+    <h3>Minor Residues</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MINORRESIDUES.*&title=Minor Residues">
+    <hr/>
 </div>
 
 

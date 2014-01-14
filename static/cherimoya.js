@@ -72,4 +72,8 @@ cherimoya.controller('RangeCtrl', ['$scope', function($scope) {
   $scope.ismeridian = true;
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
   $scope.format = $scope.formats[0];
+
+
+  $scope.width = 992;
+  $scope.height = 300;
 }]);
