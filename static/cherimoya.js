@@ -27,11 +27,6 @@ cherimoya.controller('RangeCtrl', ['$scope', function($scope) {
     return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
   };
 
-  $scope.toggleMin = function() {
-    $scope.minDate = ( $scope.minDate ) ? null : new Date();
-  };
-  $scope.toggleMin();
-
   $scope.open = function($event) {
     $event.preventDefault();
     $event.stopPropagation();
@@ -40,26 +35,6 @@ cherimoya.controller('RangeCtrl', ['$scope', function($scope) {
 
   $scope.toggleMode = function() {
     $scope.ismeridian = ! $scope.ismeridian;
-  };
-
-  $scope.update = function() {
-    var d = new Date();
-    d.setHours( 14 );
-    d.setMinutes( 0 );
-    $scope.mytime = d;
-  };
-
-  $scope.setStartFromTimestamp = function(timestamp) {
-      $scope.startMoment = new Date(timestamp * 1000);
-  }
-
-  $scope.setEndFromTimestamp = function(timestamp) {
-      $scope.endMoment = new Date(timestamp * 1000);
-  }
-
-  $scope.changed = function () {
-    console.log('Range changed to: ' + $scope.startMoment + ' ' +
-    $scope.endMoment);
   };
 
   $scope.dateOptions = {
@@ -73,7 +48,9 @@ cherimoya.controller('RangeCtrl', ['$scope', function($scope) {
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
   $scope.format = $scope.formats[0];
 
-
   $scope.width = 992;
-  $scope.height = 300;
+  $scope.height = 400;
+
+  $scope.startMoment = new Date(1389700090 * 1000);
+  $scope.endMoment = new Date(1389701300 * 1000);
 }]);

@@ -73,7 +73,7 @@ def lineformat(label, index, value, timestamp, multiple=True):
         metricreal = "%s%s.real" % (label, postfix)
         line = "%s %s %s\n" % (metricreal, value.real, timestamp.strftime("%s"))
         metricimag = "%s%s.imag" % (label, postfix)
-        line += "%s %s %s\n" % (metricimag, value.real, timestamp.strftime("%s"))
+        line += "%s %s %s\n" % (metricimag, value.imag, timestamp.strftime("%s"))
     else:
         metric = "%s%s" % (label, postfix)
         line = "%s %s %s\n" % (metric, value, timestamp.strftime("%s"))

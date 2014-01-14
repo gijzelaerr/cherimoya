@@ -25,10 +25,8 @@
                     <input type="text" class="form-control" datepicker-popup="{{format}}"
                            ng-model="startMoment" is-open="opened"
                            datepicker-options="dateOptions"
-                           ng-required="true"
-                           close-text="Close"
-                           ng-change="changed()"
-                           ng-init="setStartFromTimestamp(1389609314)"
+                           current-text="now"
+
                             />
               <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="open($event)">
@@ -56,8 +54,7 @@
                     <input type="text" class="form-control" datepicker-popup="{{format}}"
                            ng-model="endMoment" is-open="opened"
                            datepicker-options="dateOptions"
-                           ng-required="true"
-                           ng-init="setEndFromTimestamp(1389610400)"
+                           current-text="now"
                             />
               <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="open($event)">
@@ -78,11 +75,6 @@
     </div>
 
     <hr/>
-
-    <h3>Gains</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=GAINS.*.1.imag&title=GAINS.*.1.imag">
-    <hr/>
-
     <h3>Fringe Amplitude</h3>
     <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=FRINGE.AMPLITUDE&title=Fringe Amplitude">
     <hr/>
@@ -104,19 +96,28 @@
     <hr/>
 
     <h3>Major Residues</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MAJORRESIDUES.*&title=Major Residues">
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MAJORRESIDUES.*&title=Major Residues&hideLegend=false">
     <hr/>
 
     <h3>Minor Residues</h3>
-    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MINORRESIDUES.*&title=Minor Residues">
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=MINORRESIDUES.*&title=Minor Residues&hideLegend=false">
     <hr/>
-</div>
+
+    <h3>Gains</h3>
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=GAINS.*.1.real&title=GAINS.*.1.real&hideLegend=false">
+    <hr/>
+
+    <img src="/render?from={{ startMoment | timestamp }}&until={{ endMoment | timestamp }}&width={{ width }}&height={{ height }}&target=GAINS.*.1.imag&title=GAINS.*.1.imag&hideLegend=false">
+    <hr/>
 
 
 <script src="bower_components/jquery/jquery.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="cherimoya.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/highcharts/highcharts.js"></script>
+<script src="cherimoya.js"></script>
+</div>
+
 </body>
 </html>
