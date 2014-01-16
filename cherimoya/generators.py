@@ -1,3 +1,6 @@
+"""
+random data generators. Not real python generators by the way.
+"""
 import random
 
 

@@ -1,11 +1,17 @@
+"""
+Translates AARTFAAC monitoring messages ino Graphite log messages.
+"""
+
 import socket
 from datetime import datetime
 import logging
+import argparse
 from cherimoya.common import jul_unix_diff
-from cherimoya import settings
+
 
 logger = logging.getLogger(__file__)
 
+DEBUG = False
 
 ## temporary workaround to move SB002-data more into the future
 max_timestamp = 1342058400
@@ -64,6 +70,9 @@ def parseline(line):
 
 
 def lineformat(label, index, value, timestamp, multiple=True):
+    """
+    Formats a line in the Graphite log format: LABEL, VALUE, TIMESTAMP\n
+    """
     if multiple:
         postfix = ".%s" % index
     else:
@@ -90,30 +99,61 @@ def replace_dots(string):
     return string.replace(".", "-").replace("_", ".")
 
 
-def client_mainloop():
+def client_mainloop(aartfaac_host, aartfaac_port, graphite_host, graphite_port):
     """Cherimoya main loop.
     Connects to server and parses results returned.
     """
     aartfaac = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     graphite = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        aartfaac.connect((settings.AARTFAAC_HOST, settings.AARTFAAC_PORT))
-        graphite.connect((settings.GRAPHITE_HOST, settings.GRAPHITE_PORT))
+        aartfaac.connect((aartfaac_host, aartfaac_port))
+    except socket.error:
+        logging.error("cant connect to aartfaac imager on %s:%s" %
+                      (aartfaac_host, aartfaac_port))
+
+    try:
+        graphite.connect((graphite_host, graphite_port))
+    except socket.error:
+        logging.error("cant connect to graphite on %s:%s" % (graphite_host,
+                      graphite_port))
+    try:
         for line in readline(aartfaac):
             timestamp, label, values = parseline(line)
             multiple = bool(max(0, len(values) - 1))
             for index, value in values:
                 label_clean = replace_dots(label)
-                line = lineformat(label_clean, index, value, timestamp, multiple)
+                line = lineformat(label_clean, index, value, timestamp,
+                                  multiple)
                 logging.debug(line.strip())
                 graphite.sendall(line)
     finally:
         aartfaac.close()
         graphite.close()
 
-if __name__ == '__main__':
+
+def parse_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-a', help='AARTFAAC imaging host',
+                        dest='aartfaac_host', default='localhost')
+    parser.add_argument('-p', help='AARTFAAC imaging port',
+                        dest='aartfaac_port', default=9999)
+    parser.add_argument('-A', help='graphite host', dest='graphite_host',
+                        default='localhost')
+    parser.add_argument('-P', help='graphite port', dest='graphite_port',
+                        default=2003)
+    args = parser.parse_args()
+    return args
+
+
+def main():
     level = logging.INFO
-    if settings.DEBUG:
+    if DEBUG:
         level = logging.DEBUG
     logging.basicConfig(level=level)
-    client_mainloop()
+    args = parse_args()
+    client_mainloop(args.aartfaac_host, args.aartfaac_port, args.graphite_host,
+                    args.graphite_port)
+
+
+if __name__ == '__main__':
+    main()
