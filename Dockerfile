@@ -13,14 +13,13 @@ RUN apt-get -y install graphite-carbon graphite-web libapache2-mod-wsgi apache2 
 RUN sed -i "s/^[#]*SECRET_KEY = .*$/SECRET_KEY = '$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32})'/g" /etc/graphite/local_settings.py
 
 # bootstrap graphite
-ADD docker/carbon.conf /etc/carbon/carbon.confq
+ADD docker/carbon.conf /etc/carbon/carbon.conf
 RUN graphite-manage syncdb --noinput
 RUN chown _graphite:_graphite /var/lib/graphite/graphite.db
 
 # install cherimoya
 ADD . /cherimoya
 RUN cd cherimoya; python ./setup.py install
-#ENTRYPOINT ["/usr/local/bin/aartfaac-translator"]
 EXPOSE 2003
 
 # configure apache
