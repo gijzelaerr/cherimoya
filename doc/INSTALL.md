@@ -16,8 +16,7 @@ $ sudo /etc/init.d/apache2 restart
 
 You can edit your data retention policy in `/etc/carbon/storage-schemas.conf`.
 For AARTFAAC storing 1 hour with 1 second resolution takes up about 520MB
-(50KB/metric/second). Setting it to `1s:12h, 15s:7d,1m:21d,15m:5y` will take up
-about TOBEDETERMINED. For more info read the doc in
+(50KB/metric/second). For more info read the doc in
 `/usr/share/doc/graphite-web/README.Debian`.
 
 Alternatively you can install Graphite [manually](http://graphite.readthedocs.org/).
@@ -25,11 +24,6 @@ Alternatively you can install Graphite [manually](http://graphite.readthedocs.or
 Usage
 -----
 
-Install the required python modules:
-
-```Shell
-$ pip install -r requirements.txt
-```
 
 Now configure your cherimoya:
 ```Shell

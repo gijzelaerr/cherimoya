@@ -7,6 +7,5 @@ before_install:
   - sudo add-apt-repository -y ppa:gijzelaar/aartfaac
   - sudo apt-get update -qq
   - sudo ldconfig
-  - pip install -r requirements.txt --use-mirrors
 script:
   - true

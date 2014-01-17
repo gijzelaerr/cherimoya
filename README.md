@@ -17,13 +17,16 @@ Documentation
 Installation
 ------------
 
-Please see INSTALL.md
+Please see doc/INSTALL.md
 
+Usage
+-----
 
-Design
-------
-
-Please see DESIGN.md
+$ sudo docker build -t cherimoya .
+$ sudo docker run -p 80:80 -p 2003:2003 -t -i cherimoya
+$ cat data/SB002-data.dat | netcat -l 9999
+$ cherimoya/bin/aartfaac-translator
+$ brower http://localhost/cherimoya/
 
 
 credits

@@ -151,8 +151,8 @@ def main():
         level = logging.DEBUG
     logging.basicConfig(level=level)
     args = parse_args()
-    client_mainloop(args.aartfaac_host, args.aartfaac_port, args.graphite_host,
-                    args.graphite_port)
+    client_mainloop(args.aartfaac_host, int(args.aartfaac_port),
+                    args.graphite_host, int(args.graphite_port))
 
 
 if __name__ == '__main__':
