@@ -51,6 +51,6 @@ cherimoya.controller('RangeCtrl', ['$scope', function($scope) {
   $scope.width = 992;
   $scope.height = 400;
 
-  $scope.startMoment = new Date(1389700090 * 1000);
-  $scope.endMoment = new Date(1389701300 * 1000);
+  $scope.startMoment = new Date(Date.now()-24*60*60*1000);
+  $scope.endMoment = new Date();
 }]);
