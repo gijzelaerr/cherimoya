@@ -22,11 +22,25 @@ Please see doc/INSTALL.md
 Usage
 -----
 
-$ sudo docker build -t cherimoya .
-$ sudo docker run -p 80:80 -p 2003:2003 -t -i cherimoya
-$ cat data/SB002-data.dat | netcat -l 9999
-$ cherimoya/bin/aartfaac-translator
-$ brower http://localhost/cherimoya/
+ $ sudo docker build -t gijzelaerr/cherimoya .
+
+or
+
+ $ docker pull  gijzelaerr/cherimoya
+
+now run the docker instance
+
+ $ sudo docker run -p 80:80 -p 2003:2003 -t -i gijzelaerr/cherimoya
+
+You can run a fake server to test if everything is working
+
+ $ cat data/SB002-data.dat | netcat -l 9999
+
+Now start the translator
+
+ $ cherimoya/bin/aartfaac-translator
+
+and point your browser to http://localhost/cherimoya/ .
 
 
 credits
