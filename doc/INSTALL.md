@@ -1,3 +1,8 @@
+Manual installation instruction
+===============================
+
+for if you don't use docker.
+
 preperations - setting up graphite
 ----------------------------------
 
@@ -21,24 +26,20 @@ For AARTFAAC storing 1 hour with 1 second resolution takes up about 520MB
 
 Alternatively you can install Graphite [manually](http://graphite.readthedocs.org/).
 
-Usage
------
+cherimoya
+---------
 
-
-Now configure your cherimoya:
 ```Shell
-$ cp cherimoya/settings_example.py cherimoya/settings.py
-$ editor cherimoya/settings.py
+$ sudo python setup.py install
 ```
 
-If you don't have a AARTFAAC imaging pipeline, you can start a emulator:
+See the aartfaac-translator help for more information.
 ```Shell
-$ python cherimoya/emulator.py
+$ /usr/local/bin/aartfaac-translator -h
 ```
 
-To start translating AARTFAAC monitoring events to Graphite events run:
-```Shell
-$ python cherimoya/graphite.py
-```
+server static content
+---------------------
 
-and then point your browser to your graphite instance.
+Configure your apache webserver to serve to content of the static folder.
+You can use docker/apache.conf as an example.

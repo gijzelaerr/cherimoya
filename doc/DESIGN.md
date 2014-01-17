@@ -12,9 +12,9 @@ http://graphite.readthedocs.org/en/latest/
 Installation
 ------------
 
-2> I wrote some ubuntu instructions about how to set it up here:
+I wrote some ubuntu instructions about how to set it up here:
 
-https://github.com/gijzelaerr/cherimoya
+https://github.com/gijzelaerr/cherimoya/doc
 
  it is not 100% tested, and may not work for your setup.
 

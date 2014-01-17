@@ -14,40 +14,47 @@ Documentation
 
 [source for the technical design document](https://github.com/aartfaac/docs/tree/master/reports/imaging/monitoring).
 
-Installation
-------------
 
-Please see doc/INSTALL.md
+Example usage (using docker)
+----------------------------
 
-Usage
------
 
- $ sudo docker build -t gijzelaerr/cherimoya .
+```Shell
+$ sudo docker build -t gijzelaerr/cherimoya .
+```
 
 or
 
- $ docker pull  gijzelaerr/cherimoya
+```Shell
+$ docker pull  gijzelaerr/cherimoya
+```
 
 now run the docker instance
 
- $ sudo docker run -p 80:80 -p 2003:2003 -t -i gijzelaerr/cherimoya
+```Shell
+$ sudo docker run -p 80:80 -p 2003:2003 -t -i gijzelaerr/cherimoya
+```
 
-You can run a fake server to test if everything is working
+This will forward port 80 and 2003 to your local system. Please change (read
+the doc) if you already have a service running there. You can run a fake server
+to test if everything is working:
 
- $ cat data/SB002-data.dat | netcat -l 9999
+```Shell
+$ cat data/SB002-data.dat | netcat -l 9999
+````
 
 Now start the translator
 
- $ cherimoya/bin/aartfaac-translator
+```Shell
+$ cherimoya/bin/aartfaac-translator
+```
 
 and point your browser to http://localhost/cherimoya/ .
+you can also run the aartfaac-translator from the docker container itself, but
+since there are no 3rd party requirements for running it this is probably
+easier. Run the translator with -h to see the options (hostname, port).
 
-
-credits
--------
-
- * John Swinbank
- * Folkert Huizinga
- * Peeyush Prasad
- * Gijs Molenaar
+```Shell
+$ cherimoya/bin/aartfaac-translator
+```
 
